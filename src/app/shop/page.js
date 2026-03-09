@@ -502,8 +502,14 @@ export default function EssentialGrocerySection() {
                   <div className="mt-2 w-full flex justify-between items-center">
                     <span className="font-bold">{p.price}</span>
                     <button className="primary-btn rounded-xl px-4 py-2 flex items-center gap-2">
-                      <ShoppingCart size={16} /> Add to Cart
-                    </button>
+  <ShoppingCart size={16} />
+  
+  {/* Mobile */}
+  <span className="sm:hidden">Add</span>
+
+  {/* Desktop */}
+  <span className="hidden sm:inline">Add to Cart</span>
+</button>
                   </div>
                 </div>
               </Link>
