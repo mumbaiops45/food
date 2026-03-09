@@ -1,26 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary: green;
+  --secondary: white;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: black;
+}
+
+h1 {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+h5,
+h6 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+p {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* ============================= */
+/* PRIMARY BUTTON */
+/* ============================= */
+
+.primary-btn {
+  background-color: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ============================= */
+/* SECONDARY BUTTON */
+/* ============================= */
+
+.secondary-btn {
+  background-color: var(--secondary);
+  color: var(--primary);
+  border: 1px solid var(--secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.secondary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* home industry card animation */
+@keyframes slideInRight40 {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideInRight40 {
+  animation: slideInRight40 8s ease-in-out forwards;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+body {
+  overflow-x: hidden;
+}
+
+/* industry */
+@keyframes fadeInOnScroll {
+  from {
+    opacity: 0.25;
+    scale: 0.8;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.scroll-fade {
+  animation: fadeInOnScroll linear forwards;
+  animation-timeline: view();
+  animation-range: entry 20% cover 40%;
 }
