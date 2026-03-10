@@ -3,9 +3,11 @@
 import { useState, useMemo } from "react";
 import { allProducts } from "@/data/product";
 import Image from "next/image";
-import { ShoppingCart, Search, ChevronDown, X, ArrowLeft } from "lucide-react";
+import { ShoppingCart, Search, ChevronDown, X, ArrowLeft ,Check,Heart} from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext"; 
 
 // ─── Slug → filter config map ───────────────────────────────────────────────
 const slugConfig = {
@@ -55,6 +57,10 @@ const parsePrice = (priceStr) => {
 
 // ─── Page Component ───────────────────────────────────────────────────────────
 export default function ShopSlugPage() {
+   const { toggleWishlist, isWishlisted } = useWishlist();
+    const { addToCart } = useCart();
+  const [addedMap, setAddedMap] = useState({});
+  const [selectedQuantities, setSelectedQuantities] = useState({});
   const params = useParams();
   const slug = params?.slug ?? "";
 
@@ -93,6 +99,19 @@ export default function ShopSlugPage() {
 
   const handleSortSelect = (val) => { setSortOrder(val); setSortOpen(false); };
   const loadMore = () => setVisibleProducts((prev) => prev + 8);
+
+ const getSelectedQty = (product) =>
+    selectedQuantities[product.id] ?? product.quantities?.[0] ?? "";
+
+   const handleAddToCart = (product) => {
+    const qty = getSelectedQty(product);
+    addToCart(product, qty);
+    setAddedMap((prev) => ({ ...prev, [product.id]: true }));
+    setTimeout(
+      () => setAddedMap((prev) => ({ ...prev, [product.id]: false })),
+      1500
+    );
+  };
 
   // ── 404-like state for unknown slugs ────────────────────────────────────
   if (!config) {
@@ -231,7 +250,7 @@ export default function ShopSlugPage() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
             {filteredProducts.slice(0, visibleProducts).map((p) => (
-                <Link href={`/product/${p.id}`}>
+                
                    <div
                 key={p.id}
                 className="bg-gradient-to-b from-[var(--primary)]/10 to-transparent p-4 rounded-xl flex flex-col items-center transition-all duration-300 hover:scale-105 hover:from-[var(--primary)]/15 w-full h-[350px]"
@@ -243,6 +262,17 @@ export default function ShopSlugPage() {
                     fill
                     className="object-contain transition-transform duration-300 hover:scale-105"
                   />
+                  {/* ── Wishlist Heart Button ── */}
+                  <button
+                    onClick={() => toggleWishlist(p)}
+                    className="absolute top-2 right-2 bg-white p-1.5 rounded-full shadow hover:scale-110 transition-transform"
+                    title={isWishlisted(p.id) ? "Remove from wishlist" : "Add to wishlist"}
+                  >
+                    <Heart
+                      size={16}
+                      className={`transition-colors ${isWishlisted(p.id) ? "fill-red-500 text-red-500" : "text-gray-400"}`}
+                    />
+                  </button>
                 </div>
 
                 <h3 className="mt-2 font-semibold text-center">{p.name}</h3>
@@ -253,14 +283,42 @@ export default function ShopSlugPage() {
                   ))}
                 </select>
 
-                <div className="mt-auto w-full flex justify-between items-center">
-                  <span className="font-bold">{p.price}</span>
-                  <button className="primary-btn rounded-xl px-4 py-2 flex items-center gap-2 text-sm">
-                    <ShoppingCart size={15} /> Add
-                  </button>
+                <div className="mt-2 w-full">
+                  <span className="font-bold block mb-2">{p.price}</span>
+
+                  <div className="flex flex-col gap-2">
+                    {/* Add to Cart */}
+                    <button
+                      onClick={() => handleAddToCart(p)}
+                      className={`primary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center gap-2 transition-all ${
+                        addedMap[p.id] ? "opacity-80 scale-95" : ""
+                      }`}
+                    >
+                      {addedMap[p.id] ? (
+                        <>
+                          <Check size={16} />
+                          
+                          <span >Added!</span>
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart size={16} />
+                          <span className="lg:hidden">Add</span>
+                          <span className="hidden lg:inline">Add to Cart</span>
+                        </>
+                      )}
+                    </button>
+
+                    {/* Buy Now */}
+                    <Link className="w-full" href={`/product/${p.id}`}>
+                      <button className="w-full secondary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center">
+                        Buy Now
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div> 
-                </Link>
+    
               
             ))}
           </div>

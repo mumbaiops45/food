@@ -159,7 +159,7 @@ const page = () => {
           ))}
         </div>
       </section>
-      <motion.section
+      <motion.section 
         className="py-16 px-6 md:px-16 grid gap-6 md:grid-cols-3"
         initial="hidden"
         whileInView="visible"

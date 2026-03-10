@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { allProducts } from "@/data/product";
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart, Clock, Tag, Zap, Gift, ChevronRight, Copy, Check } from "lucide-react";
+import {Apple , ShoppingCart, Clock, Tag, Zap, Gift, ChevronRight, Copy, Check,Milk ,Cookie ,Coffee ,Package  } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 // ─── Offer Data ───────────────────────────────────────────────────────────────
 const COUPONS = [
@@ -31,7 +32,7 @@ const BANNERS = [
     title: "Buy 2 Get 1 Free",
     sub: "On all fresh fruits this weekend",
     link: "/shop/fruits",
-    gradient: "from-emerald-500 to-teal-400",
+    gradient: "from-[var(--primary)]/30 to-[var(--primary)]/10", // lighter primary gradient
     icon: "🍉",
   },
   {
@@ -39,7 +40,7 @@ const BANNERS = [
     title: "Free Delivery",
     sub: "On orders above ₹499 — today only",
     link: "/shop",
-    gradient: "from-violet-500 to-indigo-400",
+    gradient: "from-[var(--primary)]/30 to-[var(--primary)]/10",
     icon: "🚚",
   },
   {
@@ -47,7 +48,7 @@ const BANNERS = [
     title: "Snacks + Drinks",
     sub: "Save ₹80 on any combo pack",
     link: "/shop/snacks",
-    gradient: "from-orange-500 to-amber-400",
+    gradient: "from-[var(--primary)]/30 to-[var(--primary)]/10",
     icon: "🎉",
   },
 ];
@@ -74,6 +75,9 @@ function useCountdown(initial) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function OffersPage() {
+  const { addToCart } = useCart();
+    const [addedMap, setAddedMap] = useState({});
+    const [selectedQuantities, setSelectedQuantities] = useState({});
   const [copiedCode, setCopiedCode] = useState(null);
   const [activeBanner, setActiveBanner] = useState(0);
   const { h, m, s } = useCountdown(getSecondsUntilMidnight());
@@ -99,6 +103,20 @@ export default function OffersPage() {
   const discountedPrice = (str, pct) => {
     const base = parsePrice(str);
     return Math.round(base * (1 - pct / 100));
+  };
+
+  
+  const getSelectedQty = (product) =>
+    selectedQuantities[product.id] ?? product.quantities?.[0] ?? "";
+
+  const handleAddToCart = (product) => {
+    const qty = getSelectedQty(product);
+    addToCart(product, qty);
+    setAddedMap((prev) => ({ ...prev, [product.id]: true }));
+    setTimeout(
+      () => setAddedMap((prev) => ({ ...prev, [product.id]: false })),
+      1500
+    );
   };
 
   return (
@@ -150,16 +168,16 @@ export default function OffersPage() {
           {BANNERS.map((b, i) => (
             <div
               key={i}
-              className={`absolute inset-0 bg-gradient-to-r ${b.gradient} flex items-center justify-between px-8 transition-all duration-700 ${i === activeBanner ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"}`}
+              className={`absolute inset-0 bg-gradient-to-r ${b.gradient} flex items-center justify-between px-8 transition-all duration-[2s] ${i === activeBanner ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"}`}
             >
               <div>
-                <span className="text-white/70 text-xs font-semibold uppercase tracking-widest">{b.tag}</span>
-                <h2 className="text-white text-2xl md:text-3xl font-black mt-0.5">{b.title}</h2>
-                <p className="text-white/80 text-sm mt-1">{b.sub}</p>
+                <span className="text-[var(--primary)]/70 text-xs font-semibold uppercase tracking-widest">{b.tag}</span>
+                <h2 className="text-[var(--primary)] text-2xl md:text-3xl font-black mt-0.5">{b.title}</h2>
+                <p className="text-[var(--primary)]/60 text-sm mt-1">{b.sub}</p>
               </div>
               <div className="flex items-center gap-4">
                 <span className="text-5xl">{b.icon}</span>
-                <Link href={b.link} className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl text-sm font-semibold transition backdrop-blur-sm">
+                <Link href={b.link} className="bg-white hover:bg-white/30 text-[var(--primary)]/70 px-4 py-2 rounded-xl text-sm font-semibold transition ">
                   Shop Now
                 </Link>
               </div>
@@ -217,9 +235,9 @@ export default function OffersPage() {
       {/* ── Flash Deals Products ── */}
       <section className="px-6 md:px-16 mb-16">
         <div className="flex items-center gap-3 mb-6">
-          <Zap size={20} className="text-orange-500" fill="currentColor" />
+          <Zap size={20} className="text-[var(--primary)]" fill="currentColor" />
           <h2 className="text-xl font-bold">Flash Deals</h2>
-          <span className="ml-2 bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full animate-pulse">
+          <span className="ml-2 bg-[var(--primary)]/20 text-[var(--primary)] text-xs font-bold px-3 py-1 rounded-full animate-pulse">
             Limited Time
           </span>
         </div>
@@ -228,10 +246,10 @@ export default function OffersPage() {
           {flashProducts.map((p) => (
             <div
               key={p.id}
-              className="bg-white/70 backdrop-blur-sm border border-[var(--primary)]/15 rounded-2xl p-4 flex flex-col items-center gap-2 hover:scale-105 hover:shadow-xl transition-all duration-300 group"
+              className="bg-white/70 backdrop-blur-sm border border-[var(--primary)]/15 rounded-2xl p-4 flex flex-col items-center gap-2 hover:scale-105  transition-all duration-300 group"
             >
               {/* badge */}
-              <span className="self-start bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+              <span className="self-start bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
                 {p.label}
               </span>
 
@@ -248,10 +266,30 @@ export default function OffersPage() {
                 </span>
                 <span className="text-[10px] text-green-600 font-semibold">Save 20%</span>
               </div>
-
-              <button className="w-full primary-btn rounded-xl py-1.5 text-xs flex items-center justify-center gap-1 mt-auto">
-                <ShoppingCart size={12} /> Add
-              </button>
+              
+              <div className="flex flex-col gap-2">
+                    {/* Add to Cart */}
+                    <button
+                      onClick={() => handleAddToCart(p)}
+                      className={`primary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center gap-2 transition-all ${
+                        addedMap[p.id] ? "opacity-80 scale-95" : ""
+                      }`}
+                    >
+                      {addedMap[p.id] ? (
+                        <>
+                          <Check size={16} />
+                          
+                          <span >Added!</span>
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart size={16} />
+                          <span className="lg:hidden">Add</span>
+                          <span className="hidden lg:inline">Add to Cart</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
             </div>
           ))}
         </div>
@@ -266,20 +304,20 @@ export default function OffersPage() {
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[
-            { slug: "fruits-vegetables", label: "Fruits & Veg",  icon: "🥦", off: "20%", color: "from-green-100 to-emerald-50",   border: "border-green-200" },
-            { slug: "dairy",             label: "Dairy",          icon: "🥛", off: "15%", color: "from-blue-100 to-sky-50",        border: "border-blue-200" },
-            { slug: "snacks",            label: "Snacks",         icon: "🍟", off: "30%", color: "from-orange-100 to-amber-50",    border: "border-orange-200" },
-            { slug: "beverages",         label: "Beverages",      icon: "🧃", off: "10%", color: "from-violet-100 to-purple-50",   border: "border-violet-200" },
-            { slug: "grains",            label: "Grains",         icon: "🌾", off: "25%", color: "from-yellow-100 to-amber-50",    border: "border-yellow-200" },
+            { slug: "fruits-vegetables", label: "Fruits & Veg",  icon: <Apple size={28} className="text-[var(--primary)]" />, off: "20%", color: "from-green-100 to-emerald-50",   border: "border-green-200" },
+            { slug: "dairy",             label: "Dairy",          icon: <Milk size={28} className="text-[var(--primary)]" />, off: "15%", color: "from-green-100 to-emerald-50",        border: "border-green-200" },
+            { slug: "snacks",            label: "Snacks",         icon: <Cookie size={28} className="text-[var(--primary)]" />, off: "30%", color: "from-green-100 to-emerald-50",    border: "border-green-200" },
+            { slug: "beverages",         label: "Beverages",      icon: <Coffee size={28} className="text-[var(--primary)]" />, off: "10%", color: "from-green-100 to-emerald-50",   border: "border-green-200" },
+            { slug: "grains",            label: "Grains",         icon: <Package size={28} className="text-[var(--primary)]" />, off: "25%", color: "from-green-100 to-emerald-50",    border: "border-green-200" },
           ].map((cat) => (
             <Link
               key={cat.slug}
               href={`/shop/${cat.slug}`}
-              className={`bg-gradient-to-b ${cat.color} border ${cat.border} rounded-2xl p-5 flex flex-col items-center gap-2 hover:scale-105 hover:shadow-lg transition-all duration-300 group`}
+              className={`bg-gradient-to-b ${cat.color} border ${cat.border} rounded-2xl p-5 flex flex-col items-center gap-2 hover:scale-105  transition-all duration-300 group`}
             >
               <span className="text-4xl group-hover:scale-110 transition-transform duration-300">{cat.icon}</span>
               <span className="font-bold text-gray-800 text-sm">{cat.label}</span>
-              <span className="bg-white/80 border border-white text-xs font-black text-gray-700 px-3 py-1 rounded-full shadow-sm">
+              <span className="bg-white/80 border border-white text-xs font-black text-[var(--primary)]/75 px-3 py-1 rounded-full shadow-sm">
                 Up to {cat.off} OFF
               </span>
             </Link>

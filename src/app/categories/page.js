@@ -273,7 +273,7 @@ export default function CategoriesPage() {
                                                 <span>
                                                     <Image
                                                         src={sub.icon}
-                                                        alt={sub.name}
+                                                        alt={sub.slug}
                                                         width={40}
                                                         height={40}
                                                     />
@@ -284,7 +284,7 @@ export default function CategoriesPage() {
                                                 </div>
                                             </div>
                                             <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/60 shadow-sm flex-shrink-0">
-                                                <img src={sub.image} alt={sub.label} className="w-full h-full object-cover" />
+
                                             </div>
                                         </div>
 

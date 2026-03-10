@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ShoppingCart} from "lucide-react";
+import { ShoppingCart,Check } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 // Main Featured Card
 const mainCard = {
@@ -24,6 +26,24 @@ const allProducts = [
 ];
 
 export default function EssentialGrocerySection() {
+  const { addToCart } = useCart();
+    const [addedMap, setAddedMap] = useState({});
+     const [selectedQuantities, setSelectedQuantities] = useState({});
+
+     const getSelectedQty = (product) =>
+    selectedQuantities[product.id] ?? product.quantities?.[0] ?? "";
+
+     const handleAddToCart = (product) => {
+    const qty = getSelectedQty(product);
+    addToCart(product, qty);
+    setAddedMap((prev) => ({ ...prev, [product.id]: true }));
+    setTimeout(
+      () => setAddedMap((prev) => ({ ...prev, [product.id]: false })),
+      1500
+    );
+  };
+
+
   return (
         <section className=" px-6 md:px-16 w-full bg-gradient-to-r from-[var(--secondary)] to-transparent">
   {/* Main Card on Top */}
@@ -77,8 +97,8 @@ export default function EssentialGrocerySection() {
   {/* Products Grid Below */}
   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
     {allProducts.map((p) => (
-      <Link href={`/product/${p.id}`} key={p.id}>
-        <div
+     
+        <div key={p.id}
           
           className="bg-gradient-to-b from-[var(--primary)]/10 to-transparent p-4 rounded-xl flex flex-col items-center transition-all duration-300 hover:scale-105 hover:bg-gradient-to-b hover:from-[var(--primary)]/15 hover:to-transparent w-full h-[350px]"
         >
@@ -99,13 +119,40 @@ export default function EssentialGrocerySection() {
           <div className="mt-2 w-full flex justify-between items-center">
             <span className="font-bold">{p.price}</span>
             <div className="mt-auto flex justify-center">
-              <button className="primary-btn w-fit rounded-xl px-4 py-2 flex items-center justify-center gap-2">
-                <ShoppingCart size={16} /> Add to Cart
-              </button>
+               <div className="flex flex-col gap-2">
+                    {/* Add to Cart */}
+                    <button
+                      onClick={() => handleAddToCart(p)}
+                      className={`primary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center gap-2 transition-all ${
+                        addedMap[p.id] ? "opacity-80 scale-95" : ""
+                      }`}
+                    >
+                      {addedMap[p.id] ? (
+                        <>
+                          <Check size={16} />
+                          
+                          <span >Added!</span>
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart size={16} />
+                          <span className="lg:hidden">Add</span>
+                          <span className="hidden lg:inline">Add to Cart</span>
+                        </>
+                      )}
+                    </button>
+
+                    {/* Buy Now */}
+                    <Link className="w-full" href={`/product/${p.id}`}>
+                      <button className="w-full secondary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center">
+                        Buy Now
+                      </button>
+                    </Link>
+                  </div>
             </div>
           </div>
         </div>
-      </Link>
+    
       
     ))}
   </div>

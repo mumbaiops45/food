@@ -18,15 +18,16 @@ export default function Footer() {
     ];
 
     const Categories = [
-        { name: "Fruits & Vegetables", path: "/categories/fruits-vegetables" },
-        { name: "Dairy", path: "/categories/dairy" },
-        { name: "Snacks", path: "/categories/snacks" },
-        { name: "Beverages", path: "/categories/beverages" },
-        { name: "Grains", path: "/categories/grains" },
-        { name: "Household", path: "/categories/household" },
+        { name: "Fruits & Vegetables", path: "/shop/fruits-vegetables" },
+        { name: "Dairy", path: "/shop/dairy" },
+        { name: "Snacks", path: "/shop/snacks" },
+        { name: "Beverages", path: "/shop/beverages" },
+        { name: "Grains", path: "/shop/grainss" },
+        
     ];
 
     const support = [
+         { name: "Contact Us", path: "/contact" },
         { name: "FAQs", path: "/FAQs" },
         { name: "Shipping & Returns", path: "/Shipping&Returns" },
         { name: "Privacy Policy", path: "/Privacy&Policy" },

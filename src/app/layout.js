@@ -2,6 +2,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
+import ScrollToTop from "@/components/ScrollToTop";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,12 +15,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body 
-      
+      <body
+
       >
-        <Navbar/>
-        {children}
-        <Footer/>
+        <ScrollProgress />  
+        <CartProvider>
+          <WishlistProvider>
+            <Navbar />
+            {children}
+            <Footer />
+             <ScrollToTop/>
+          </WishlistProvider>
+        </CartProvider>
       </body>
     </html>
   );

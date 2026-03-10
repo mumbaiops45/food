@@ -7,43 +7,48 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ShoppingCart, Star, StarHalf, ArrowLeft, ChevronRight,
-  ShieldCheck, Truck, RefreshCw, Leaf, Heart, Share2, Minus, Plus
+  ShieldCheck, Truck, RefreshCw, Leaf, Heart, Share2, Minus, Plus, Check
 } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const parsePrice = (str) => parseFloat(String(str).replace(/[^0-9.]/g, "")) || 0;
 
 const categoryLabels = {
   "fruits-vegetables": "Fruits & Vegetables",
-  "dairy":    "Dairy",
-  "snacks":   "Snacks",
-  "beverages":"Beverages",
-  "grains":   "Grains",
+  "dairy": "Dairy",
+  "snacks": "Snacks",
+  "beverages": "Beverages",
+  "grains": "Grains",
 };
 
 function StarRating({ rating }) {
-  const full  = Math.floor(rating);
-  const half  = rating % 1 >= 0.5;
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
   const empty = 5 - full - (half ? 1 : 0);
   return (
     <div className="flex items-center gap-0.5">
-      {Array(full).fill(0).map((_, i) => <Star  key={`f${i}`} size={16} className="text-amber-400 fill-amber-400" />)}
-      {half &&                             <StarHalf              size={16} className="text-amber-400 fill-amber-400" />}
-      {Array(empty).fill(0).map((_, i) => <Star  key={`e${i}`} size={16} className="text-gray-200 fill-gray-200" />)}
+      {Array(full).fill(0).map((_, i) => <Star key={`f${i}`} size={16} className="text-amber-400 fill-amber-400" />)}
+      {half && <StarHalf size={16} className="text-amber-400 fill-amber-400" />}
+      {Array(empty).fill(0).map((_, i) => <Star key={`e${i}`} size={16} className="text-gray-200 fill-gray-200" />)}
     </div>
   );
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function ProductPage() {
-  const params  = useParams();
-  const id      = Number(params?.id);
+  const { addToCart } = useCart();
+  const [addedMap, setAddedMap] = useState({});
+  const [selectedQuantities, setSelectedQuantities] = useState({});
+
+  const params = useParams();
+  const id = Number(params?.id);
   const product = allProducts.find((p) => p.id === id);
 
-  const [selectedQty, setSelectedQty]   = useState(0);
-  const [cartQty, setCartQty]           = useState(1);
-  const [addedToCart, setAddedToCart]   = useState(false);
-  const [wishlisted, setWishlisted]     = useState(false);
+  const [selectedQty, setSelectedQty] = useState(0);
+  const [cartQty, setCartQty] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [wishlisted, setWishlisted] = useState(false);
 
   // related products (same subCategory, exclude self)
   const related = useMemo(
@@ -61,21 +66,30 @@ export default function ProductPage() {
     );
   }
 
-  const basePrice    = parsePrice(product.price);
-  const unitLabel    = product.quantities[selectedQty];
+  const basePrice = parsePrice(product.price);
+  const unitLabel = product.quantities[selectedQty];
   const discountedPrice = Math.round(basePrice * 0.95); // small 5% online-exclusive discount
 
-  const handleAddToCart = () => {
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
+  const getSelectedQty = (product) =>
+    selectedQuantities[product.id] ?? product.quantities?.[0] ?? "";
+
+  const handleAddToCart = (product) => {
+    const qty = getSelectedQty(product);
+    addToCart(product, qty);
+    setAddedMap((prev) => ({ ...prev, [product.id]: true }));
+    setTimeout(
+      () => setAddedMap((prev) => ({ ...prev, [product.id]: false })),
+      1500
+    );
   };
+
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-[var(--secondary)] via-white to-[var(--secondary)]/40">
 
       {/* ── Breadcrumb ── */}
       <nav className="px-6 md:px-16 pt-6 flex items-center gap-2 text-sm text-gray-400 flex-wrap">
-        <Link href="/"    className="hover:text-[var(--primary)] transition">Home</Link>
+        <Link href="/" className="hover:text-[var(--primary)] transition">Home</Link>
         <ChevronRight size={14} />
         <Link href="/shop" className="hover:text-[var(--primary)] transition">Shop</Link>
         <ChevronRight size={14} />
@@ -107,11 +121,10 @@ export default function ProductPage() {
             {/* Wishlist btn */}
             <button
               onClick={() => setWishlisted((w) => !w)}
-              className={`absolute top-4 right-4 w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
-                wishlisted
+              className={`absolute top-4 right-4 w-10 h-10 rounded-full border flex items-center justify-center transition-all ${wishlisted
                   ? "bg-rose-500 border-rose-500 text-white"
                   : "bg-white/80 border-gray-200 text-gray-400 hover:text-rose-500"
-              }`}
+                }`}
             >
               <Heart size={18} fill={wishlisted ? "currentColor" : "none"} />
             </button>
@@ -125,9 +138,9 @@ export default function ProductPage() {
           {/* Trust badges */}
           <div className="grid grid-cols-3 gap-3 mt-4">
             {[
-              { icon: <Truck size={16} />,       label: "Free Delivery", sub: "Above ₹499" },
+              { icon: <Truck size={16} />, label: "Free Delivery", sub: "Above ₹499" },
               { icon: <ShieldCheck size={16} />, label: "Quality Tested", sub: "Certified fresh" },
-              { icon: <RefreshCw size={16} />,   label: "Easy Returns",  sub: "Within 24h" },
+              { icon: <RefreshCw size={16} />, label: "Easy Returns", sub: "Within 24h" },
             ].map((b) => (
               <div key={b.label} className="bg-white/60 border border-[var(--primary)]/15 rounded-xl p-3 flex flex-col items-center text-center gap-1">
                 <span className="text-[var(--primary)]">{b.icon}</span>
@@ -182,11 +195,10 @@ export default function ProductPage() {
                 <button
                   key={q}
                   onClick={() => setSelectedQty(i)}
-                  className={`px-4 py-2 rounded-xl border text-sm font-semibold transition-all ${
-                    selectedQty === i
+                  className={`px-4 py-2 rounded-xl border text-sm font-semibold transition-all ${selectedQty === i
                       ? "border-[var(--primary)] bg-[var(--primary)]/15 text-[var(--primary)]"
                       : "border-gray-200 bg-white/70 text-gray-600 hover:border-[var(--primary)]/50"
-                  }`}
+                    }`}
                 >
                   {q}
                 </button>
@@ -220,10 +232,9 @@ export default function ProductPage() {
           {/* CTA Buttons */}
           <div className="flex gap-3 flex-wrap">
             <button
-              onClick={handleAddToCart}
-              className={`flex-1 primary-btn py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
-                addedToCart ? "opacity-80 scale-95" : ""
-              }`}
+               onClick={() => handleAddToCart(product)}
+              className={`flex-1 primary-btn py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${addedToCart ? "opacity-80 scale-95" : ""
+                }`}
             >
               <ShoppingCart size={18} />
               {addedToCart ? "Added to Cart ✓" : "Add to Cart"}
@@ -260,10 +271,10 @@ export default function ProductPage() {
             <h3 className="font-bold text-gray-800 mb-3 text-sm">Product Info</h3>
             <div className="grid grid-cols-2 gap-y-2 text-sm">
               {[
-                { label: "Origin",    value: product.origin },
-                { label: "Shelf Life",value: product.shelf },
-                { label: "Category",  value: categoryLabels[product.category] },
-                { label: "Sub-type",  value: product.subCategory },
+                { label: "Origin", value: product.origin },
+                { label: "Shelf Life", value: product.shelf },
+                { label: "Category", value: categoryLabels[product.category] },
+                { label: "Sub-type", value: product.subCategory },
               ].map(({ label, value }) => (
                 <div key={label} className="contents">
                   <span className="text-gray-400 font-medium">{label}</span>
@@ -288,9 +299,9 @@ export default function ProductPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {related.map((p) => (
-              <Link
+              <div
                 key={p.id}
-                href={`/product/${p.id}`}
+
                 className="bg-white/70 backdrop-blur-sm border border-[var(--primary)]/15 rounded-2xl p-4 flex flex-col items-center gap-3 hover:scale-105 hover:shadow-lg transition-all duration-300 group"
               >
                 <div className="relative w-full h-28 bg-[var(--secondary)]/50 rounded-xl overflow-hidden">
@@ -302,10 +313,45 @@ export default function ProductPage() {
                   <span className="text-xs text-gray-500">{p.rating}</span>
                 </div>
                 <span className="font-black text-[var(--primary)]">{p.price}</span>
-                <button className="w-full primary-btn rounded-xl py-2 text-xs flex items-center justify-center gap-1">
-                  <ShoppingCart size={12} /> Add to Cart
-                </button>
-              </Link>
+                <div className="mt-2 w-full">
+
+                  <div className="flex flex-col gap-2">
+
+                    {/* Add to Cart */}
+                    <div className="flex flex-col gap-2">
+                      {/* Add to Cart */}
+                      <button
+                        onClick={() => handleAddToCart(p)}
+                        className={`primary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center gap-2 transition-all ${addedMap[p.id] ? "opacity-80 scale-95" : ""
+                          }`}
+                      >
+                        {addedMap[p.id] ? (
+                          <>
+                            <Check size={16} />
+
+                            <span >Added!</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart size={16} />
+                            <span className="lg:hidden">Add</span>
+                            <span className="hidden lg:inline">Add to Cart</span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* Buy Now */}
+                      <Link className="w-full" href={`/product/${p.id}`}>
+                        <button className="w-full secondary-btn flex-1 rounded-xl px-3 py-2 flex items-center justify-center">
+                          Buy Now
+                        </button>
+                      </Link>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </section>
