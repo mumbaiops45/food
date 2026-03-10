@@ -32,7 +32,7 @@ export default function WishlistPage() {
                 <div className="bg-[var(--primary)]/10 rounded-full p-8">
                     <Heart size={64} className="text-[var(--primary)] opacity-50" />
                 </div>
-                <h2 className="text-2xl font-bold">Your wishlist is empty</h2>
+                <h2 className="text-2xl font-bold">Your wishlist is emptys</h2>
                 <p className="text-gray-500 text-center">
                     Save products you love by clicking the heart icon on any product.
                 </p>
