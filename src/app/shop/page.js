@@ -6,7 +6,7 @@ import { allProducts } from "@/data/product";
 import Image from "next/image";
 import { ShoppingCart, Search, ChevronDown, X, Check, Heart } from "lucide-react";
 import Link from "next/link";
-
+import { useSearchParams, useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 
@@ -72,8 +72,8 @@ const ShopSlides = [
 ];
 
 export default function EssentialGrocerySection() {
-
-
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     const { addToCart } = useCart();
     const { toggleWishlist, isWishlisted } = useWishlist();
