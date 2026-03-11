@@ -90,7 +90,7 @@ function SearchBar({ className = "" }) {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search groceries..."
-                className="w-full pl-12 pr-32 py-4 rounded-xl  text-black outline-none"
+                className="w-full pl-12 pr-32 py-4 rounded-xl text-black outline-none"
             />
             <button
                 onClick={handleSearch}
