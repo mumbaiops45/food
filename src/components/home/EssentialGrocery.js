@@ -100,7 +100,7 @@ export default function EssentialGrocerySection() {
      
         <div key={p.id}
           
-          className="bg-gradient-to-b from-[var(--primary)]/10 to-transparent p-4 rounded-xl flex flex-col items-center transition-all duration-300 hover:scale-105 hover:bg-gradient-to-b hover:from-[var(--primary)]/15 hover:to-transparent w-full h-[350px]"
+          className="relative bg-gradient-to-b from-[var(--primary)]/10 to-transparent p-4 rounded-xl flex flex-col items-center transition-all duration-300 hover:scale-105 hover:bg-gradient-to-b hover:from-[var(--primary)]/15 hover:to-transparent w-full h-[350px]"
         >
           <div className="relative w-full h-32 bg-[var(--secondary)]/50 flex items-center justify-center overflow-hidden rounded-lg">
             <Image
@@ -116,9 +116,9 @@ export default function EssentialGrocerySection() {
               <option key={q} value={q}>{q}</option>
             ))}
           </select>
-          <div className="mt-2 w-full flex justify-between items-center">
-            <span className="font-bold">{p.price}</span>
-            <div className="mt-auto flex justify-center">
+          <div className="mt-2 w-full flex-col justify-between items-center">
+            <span className=" absolute top-5 left-6 font-bold">{p.price}</span>
+            <div className="mt-auto ">
                <div className="flex flex-col gap-2">
                     {/* Add to Cart */}
                     <button

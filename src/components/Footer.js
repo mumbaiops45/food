@@ -191,7 +191,7 @@ export default function Footer() {
 
                     {/* Left Side */}
                     <div>
-                        © {new Date().getFullYear()} LOGO. All Rights Reserved.
+                        © {new Date().getFullYear()} OJAIN. All Rights Reserved.
                     </div>
 
                     {/* Right Side */}

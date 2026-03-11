@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
     { name: "Home", slug: "/" },
@@ -103,6 +104,8 @@ function SearchBar({ className = "" }) {
 }
 
 export default function Navbar() {
+    const pathname = usePathname();
+
     const [mobileOpen, setMobileOpen] = useState(false);
     const { cartCount } = useCart();
     const { wishlistCount } = useWishlist();
@@ -167,12 +170,12 @@ export default function Navbar() {
             <div className="w-full px-6 py-3 flex items-center justify-between bg-[var(--primary)] text-white relative">
 
                 {/* Social Media */}
-                <div className="hidden md:flex items-center justify-start gap-3">
+                <div className="hidden lg:flex items-center justify-start gap-3">
                     {[
-                        { href: "https://facebook.com",  Icon: Facebook  },
-                        { href: "https://twitter.com",   Icon: Twitter   },
+                        { href: "https://facebook.com", Icon: Facebook },
+                        { href: "https://twitter.com", Icon: Twitter },
                         { href: "https://instagram.com", Icon: Instagram },
-                        { href: "https://youtube.com",   Icon: Youtube   },
+                        { href: "https://youtube.com", Icon: Youtube },
                     ].map(({ href, Icon }) => (
                         <a key={href} href={href} target="_blank" rel="noopener noreferrer"
                             className="p-3 rounded-full border border-white hover:text-black hover:bg-[var(--secondary)] transition duration-300">
@@ -182,37 +185,48 @@ export default function Navbar() {
                 </div>
 
                 {/* Desktop Nav Menu */}
-                <div className="hidden md:flex gap-8 font-medium">
-                    {menuItems.map((item, index) => (
-                        <div key={index} className="relative group">
-                            <Link href={item.slug} className="flex items-center gap-1 hover:text-[var(--secondary)] transition">
-                                {item.name}
-                                {item.subCategories && <ChevronDown size={16} />}
-                            </Link>
+                <div className="hidden md:flex md:m-auto lg:m-0 gap-8 font-medium">
+                    {menuItems.map((item, index) => {
+                        const isActive =
+                            item.slug === "/"
+                                ? pathname === "/"
+                                : pathname.startsWith(item.slug);
 
-                            {/* Level 1 Dropdown */}
-                            {item.subCategories && (
-                                <div className="absolute left-0 top-8 bg-white text-black shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[200px] z-50">
-                                    {item.subCategories.map((sub, i) => (
-                                        <div key={i} className="relative group/sub">
-                                            <Link href={sub.slug} className="flex justify-between items-center px-4 py-2 hover:bg-[var(--secondary)] transition">
-                                                {sub.name}
-                                                <ChevronDown size={14} className="-rotate-90" />
-                                            </Link>
-                                            {/* Level 2 Dropdown */}
-                                            <div className="absolute left-full top-0 bg-white shadow-lg rounded-md opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300 min-w-[180px] z-50">
-                                                {sub.items.map((child, j) => (
-                                                    <Link key={j} href={child.slug} className="block px-4 py-2 hover:bg-[var(--secondary)] transition">
-                                                        {child.name}
-                                                    </Link>
-                                                ))}
+                        return (
+                            <div key={index} className="relative group">
+                                <Link href={item.slug} className={`flex items-center gap-1 transition relative
+${isActive
+  ? "after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-white"
+  : "hover:text-[var(--secondary)]"}
+`}>
+                                    {item.name}
+                                    {item.subCategories && <ChevronDown size={16} />}
+                                </Link>
+
+                                {/* Level 1 Dropdown */}
+                                {item.subCategories && (
+                                    <div className="absolute left-0 top-8 bg-white text-black shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[200px] z-50">
+                                        {item.subCategories.map((sub, i) => (
+                                            <div key={i} className="relative group/sub">
+                                                <Link href={sub.slug} className="flex justify-between items-center px-4 py-2 hover:bg-[var(--secondary)] transition">
+                                                    {sub.name}
+                                                    <ChevronDown size={14} className="-rotate-90" />
+                                                </Link>
+                                                {/* Level 2 Dropdown */}
+                                                <div className="absolute left-full top-0 bg-white shadow-lg rounded-md opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300 min-w-[180px] z-50">
+                                                    {sub.items.map((child, j) => (
+                                                        <Link key={j} href={child.slug} className="block px-4 py-2 hover:bg-[var(--secondary)] transition">
+                                                            {child.name}
+                                                        </Link>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )
+                    })}
                 </div>
 
                 {/* Mobile Search */}

@@ -209,14 +209,14 @@ export default function ShopAllProduct() {
     return (
         <>
             {/* Hero Slider */}
-            <section className="relative w-full h-[85vh] overflow-hidden">
+            <section className="relative w-full h-[64vh] md:h-[50vh] lg:h-[85vh]  2xl:h-[50vh] overflow-hidden">
                 <div className="flex transition-transform duration-700 ease-in-out h-full" style={{ transform: `translateX(-${current * 100}%)` }}>
                     {ShopSlides.map((slide) => (
                         <div key={slide.id} className="w-full flex-shrink-0 relative h-full">
                             <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-black/30" />
-                            <div className="absolute inset-0 flex items-center px-6 md:px-16">
-                                <div className="max-w-xl text-white">
+                            <div className="absolute inset-0 flex items-center px-6 md:px-16 xl:px-50">
+                                <div className="w-full xl:max-w-[50vw] text-white">
                                     <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm">{slide.tag}</span>
                                     <h1 className="mt-6 text-3xl md:text-5xl font-bold leading-tight">{slide.title}</h1>
                                     <p className="mt-4 text-base md:text-lg text-gray-200">{slide.description}</p>

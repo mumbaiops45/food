@@ -96,7 +96,7 @@ const page = () => {
   }, []);
   return (
     <>
-      <section className="relative w-full h-[85vh] overflow-hidden">
+      <section className="relative w-full  h-[54vh] md:h-[85vh] overflow-hidden">
 
         {/* Slides */}
         <div
