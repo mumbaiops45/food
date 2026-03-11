@@ -215,7 +215,7 @@ export default function ShopAllProduct() {
                         <div key={slide.id} className="w-full flex-shrink-0 relative h-full">
                             <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-black/30" />
-                            <div className="absolute inset-0 flex items-center px-6 md:px-16 xl:px-50">
+                            <div className="absolute inset-0 flex items-center px-6 md:px-16 2xl:px-50">
                                 <div className="w-full xl:max-w-[50vw] text-white">
                                     <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm">{slide.tag}</span>
                                     <h1 className="mt-6 text-3xl md:text-5xl font-bold leading-tight">{slide.title}</h1>
