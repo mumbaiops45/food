@@ -59,6 +59,22 @@ const menuItems = [
                     { name: "Wheat", slug: "/shop?category=grains&sub=wheat" },
                 ],
             },
+            {
+                name: "Bakery",
+                slug: "/shop?category=bakery",
+                items: [
+                    { name: "bread", slug: "/shop?category=bakery&sub=bread" },
+                    { name: "cakes", slug: "/shop?category=bakery&sub=cakes" },
+                ],
+            },
+            {
+                name: "Frozen-foods",
+                slug: "/shop?category=frozen-foods",
+                items: [
+                    { name: "ice-cream", slug: "/shop?category=frozen-foods&sub=ice-cream" },
+                    { name: "frozen-snacks", slug: "/shop?category=frozen-foods&sub=frozen-snacks" },
+                ],
+            }
         ],
     },
     { name: "Offers", slug: "/offers" },

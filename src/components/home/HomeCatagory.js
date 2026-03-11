@@ -11,6 +11,8 @@ const categories = [
     { name: "Snacks", slug: "/shop/snacks", image: "/Snacks.webp" },
     { name: "Beverages", slug: "/shop/beverages", image: "/Beverages.png" },
     { name: "Grains", slug: "/shop/grains", image: "/Grains.png" },
+    { name: "Bakery Items", slug: "/shop/bakery/", image: "Bakery Items.png" },
+    { name: "Frozen Foods", slug: "/shop/frozen-foods", image: "Frozen Foods.webp" },
     { name: "Household", slug: "/shop", image: "Household.png" },
 ];
 
@@ -67,7 +69,7 @@ export default function CategoriesScroll() {
                 {/* Horizontal Scroll Container */}
                 <div
                     ref={scrollRef}
-                    className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide py-2"
+                    className="flex gap-10   overflow-x-auto scroll-smooth scrollbar-hide py-2"
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // hide scrollbar for Firefox/IE
                 >
                     {categories.map((cat) => (

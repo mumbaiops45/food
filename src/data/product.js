@@ -220,5 +220,336 @@ highlights: [
 "Premium quality",
 "Protein packed"
 ]
+},
+/* ================= BAKERY ================= */
+
+/* ---- BREAD ---- */
+
+{
+id: 67,
+name: "Brown Bread",
+image: "/products/Brown Bread.png",
+price: "₹45",
+quantities: ["400g"],
+category: "bakery",
+subCategory: "bread",
+rating: 4.4,
+reviews: 120,
+origin: "Britannia",
+shelf: "5 days",
+description: "Soft and healthy brown bread made with whole wheat flour. Ideal for sandwiches and breakfast toast.",
+highlights: ["Whole wheat","Soft texture","High fibre","Healthy breakfast"]
+},
+
+{
+id: 68,
+name: "White Bread",
+image: "/products/White Bread.png",
+price: "₹40",
+quantities: ["400g"],
+category: "bakery",
+subCategory: "bread",
+rating: 4.3,
+reviews: 98,
+origin: "Britannia",
+shelf: "5 days",
+description: "Classic soft white bread perfect for toast, sandwiches, and quick snacks.",
+highlights: ["Soft slices","Light texture","Fresh baked","Everyday staple"]
+},
+
+{
+id: 69,
+name: "Multigrain Bread",
+image: "/products/Multigrain Bread.png",
+price: "₹60",
+quantities: ["400g"],
+category: "bakery",
+subCategory: "bread",
+rating: 4.5,
+reviews: 150,
+origin: "Harvest Gold",
+shelf: "5 days",
+description: "Healthy multigrain bread packed with oats, wheat, and seeds for better nutrition.",
+highlights: ["Multiple grains","High fibre","Healthy option","Rich taste"]
+},
+
+{
+id: 70,
+name: "Garlic Bread",
+image: "/products/Garlic Bread.png",
+price: "₹80",
+quantities: ["250g"],
+category: "bakery",
+subCategory: "bread",
+rating: 4.6,
+reviews: 200,
+origin: "Local Bakery",
+shelf: "3 days",
+description: "Buttery garlic bread with herbs. Perfect side for pasta and snacks.",
+highlights: ["Garlic flavour","Buttery taste","Herb seasoning","Snack favourite"]
+},
+
+{
+id: 71,
+name: "Sandwich Bread",
+image: "/products/Sandwich Bread.png",
+price: "₹50",
+quantities: ["400g"],
+category: "bakery",
+subCategory: "bread",
+rating: 4.4,
+reviews: 134,
+origin: "Britannia",
+shelf: "5 days",
+description: "Extra soft sandwich bread slices perfect for grilled sandwiches and toast.",
+highlights: ["Soft slices","Perfect for sandwiches","Fresh baked","Light texture"]
+},
+
+/* ---- CAKES ---- */
+
+{
+id: 72,
+name: "Chocolate Cake",
+image: "/products/Chocolate Cake.png",
+price: "₹250",
+quantities: ["500g","1kg"],
+category: "bakery",
+subCategory: "cakes",
+rating: 4.7,
+reviews: 312,
+origin: "Local Bakery",
+shelf: "3 days",
+description: "Rich and moist chocolate cake layered with creamy chocolate frosting.",
+highlights: ["Rich cocoa","Moist sponge","Creamy frosting","Perfect dessert"]
+},
+
+{
+id: 73,
+name: "Vanilla Cake",
+image: "/products/Vanilla Cake.png",
+price: "₹230",
+quantities: ["500g","1kg"],
+category: "bakery",
+subCategory: "cakes",
+rating: 4.5,
+reviews: 210,
+origin: "Local Bakery",
+shelf: "3 days",
+description: "Classic vanilla sponge cake topped with whipped cream frosting.",
+highlights: ["Soft sponge","Light flavour","Cream topping","Party favourite"]
+},
+
+{
+id: 74,
+name: "Black Forest Cake",
+image: "/products/Black Forest Cake.png",
+price: "₹320",
+quantities: ["500g","1kg"],
+category: "bakery",
+subCategory: "cakes",
+rating: 4.8,
+reviews: 420,
+origin: "Local Bakery",
+shelf: "3 days",
+description: "Chocolate sponge layered with whipped cream and cherries.",
+highlights: ["Chocolate layers","Cherry topping","Whipped cream","Classic dessert"]
+},
+
+{
+id: 75,
+name: "Strawberry Cake",
+image: "/products/Strawberry Cake.png",
+price: "₹300",
+quantities: ["500g","1kg"],
+category: "bakery",
+subCategory: "cakes",
+rating: 4.6,
+reviews: 188,
+origin: "Local Bakery",
+shelf: "3 days",
+description: "Fresh strawberry cake with sweet cream and fruity flavour.",
+highlights: ["Fresh strawberries","Soft sponge","Cream topping","Sweet aroma"]
+},
+
+{
+id: 76,
+name: "Pineapple Cake",
+image: "/products/Pineapple Cake.png",
+price: "₹290",
+quantities: ["500g","1kg"],
+category: "bakery",
+subCategory: "cakes",
+rating: 4.6,
+reviews: 240,
+origin: "Local Bakery",
+shelf: "3 days",
+description: "Light pineapple cake topped with pineapple chunks and whipped cream.",
+highlights: ["Tropical flavour","Fresh pineapple","Cream frosting","Light dessert"]
+},
+
+/* ================= FROZEN FOODS ================= */
+
+/* ---- ICE CREAM ---- */
+
+{
+id: 77,
+name: "Vanilla Ice Cream",
+image: "/products/Vanilla Ice Cream.png",
+price: "₹180",
+quantities: ["500ml","1L"],
+category: "frozen-foods",
+subCategory: "ice-cream",
+rating: 4.6,
+reviews: 300,
+origin: "Amul",
+shelf: "6 months",
+description: "Creamy vanilla ice cream made with real milk and natural vanilla flavour.",
+highlights: ["Creamy texture","Real milk","Classic flavour","Family favourite"]
+},
+
+{
+id: 78,
+name: "Chocolate Ice Cream",
+image: "/products/Chocolate Ice Cream.png",
+price: "₹190",
+quantities: ["500ml","1L"],
+category: "frozen-foods",
+subCategory: "ice-cream",
+rating: 4.7,
+reviews: 345,
+origin: "Amul",
+shelf: "6 months",
+description: "Rich chocolate ice cream made with premium cocoa.",
+highlights: ["Rich cocoa","Creamy taste","Premium quality","Dessert favourite"]
+},
+
+{
+id: 79,
+name: "Strawberry Ice Cream",
+image: "/products/Strawberry Ice Cream.png",
+price: "₹180",
+quantities: ["500ml","1L"],
+category: "frozen-foods",
+subCategory: "ice-cream",
+rating: 4.5,
+reviews: 210,
+origin: "Amul",
+shelf: "6 months",
+description: "Refreshing strawberry ice cream made with real fruit flavour.",
+highlights: ["Fruity taste","Creamy texture","Refreshing dessert","Sweet flavour"]
+},
+
+{
+id: 80,
+name: "Butterscotch Ice Cream",
+image: "/products/Butterscotch Ice Cream.webp",
+price: "₹200",
+quantities: ["500ml","1L"],
+category: "frozen-foods",
+subCategory: "ice-cream",
+rating: 4.7,
+reviews: 280,
+origin: "Kwality Walls",
+shelf: "6 months",
+description: "Creamy butterscotch ice cream with crunchy caramel bits.",
+highlights: ["Caramel crunch","Rich flavour","Creamy texture","Popular flavour"]
+},
+
+{
+id: 81,
+name: "Mango Ice Cream",
+image: "/products/Mango Ice Cream.png",
+price: "₹190",
+quantities: ["500ml","1L"],
+category: "frozen-foods",
+subCategory: "ice-cream",
+rating: 4.6,
+reviews: 260,
+origin: "Amul",
+shelf: "6 months",
+description: "Smooth mango ice cream made with Alphonso mango pulp.",
+highlights: ["Alphonso mango","Smooth texture","Sweet flavour","Summer favourite"]
+},
+
+/* ---- FROZEN SNACKS ---- */
+
+{
+id: 82,
+name: "Frozen French Fries",
+image: "/products/Frozen French Fries.png",
+price: "₹150",
+quantities: ["500g","1kg"],
+category: "frozen-foods",
+subCategory: "frozen-snacks",
+rating: 4.5,
+reviews: 300,
+origin: "McCain",
+shelf: "12 months",
+description: "Crispy frozen French fries ready to fry or bake at home.",
+highlights: ["Crispy fries","Quick snack","Restaurant style","Easy cooking"]
+},
+
+{
+id: 83,
+name: "Frozen Veg Momos",
+image: "/products/Frozen Veg Momos.png",
+price: "₹140",
+quantities: ["400g"],
+category: "frozen-foods",
+subCategory: "frozen-snacks",
+rating: 4.4,
+reviews: 210,
+origin: "Prasuma",
+shelf: "8 months",
+description: "Steamed veg momos filled with vegetables and spices.",
+highlights: ["Steamed snack","Veg filling","Quick cooking","Tasty snack"]
+},
+
+{
+id: 84,
+name: "Frozen Chicken Nuggets",
+image: "/products/Frozen Chicken Nuggets.png",
+price: "₹220",
+quantities: ["400g"],
+category: "frozen-foods",
+subCategory: "frozen-snacks",
+rating: 4.6,
+reviews: 350,
+origin: "McCain",
+shelf: "8 months",
+description: "Crispy chicken nuggets ready to fry or air fry.",
+highlights: ["Crispy coating","Juicy chicken","Quick snack","Kids favourite"]
+},
+
+{
+id: 85,
+name: "Frozen Veg Spring Rolls",
+image: "/products/Frozen Veg Spring Rolls.png",
+price: "₹160",
+quantities: ["400g"],
+category: "frozen-foods",
+subCategory: "frozen-snacks",
+rating: 4.4,
+reviews: 180,
+origin: "Ching's",
+shelf: "8 months",
+description: "Crunchy veg spring rolls filled with vegetables and noodles.",
+highlights: ["Crunchy snack","Veg filling","Party snack","Easy cooking"]
+},
+
+{
+id: 86,
+name: "Frozen Aloo Tikki",
+image: "/products/Frozen Aloo Tikki.png",
+price: "₹130",
+quantities: ["400g"],
+category: "frozen-foods",
+subCategory: "frozen-snacks",
+rating: 4.5,
+reviews: 210,
+origin: "McCain",
+shelf: "8 months",
+description: "Spicy potato patties ready to fry for burgers or snacks.",
+highlights: ["Spicy potato","Quick snack","Burger filling","Crispy outside"]
 }
 ];

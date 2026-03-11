@@ -11,6 +11,7 @@ import { useWishlist } from "@/context/WishlistContext";
 
 // ─── Slug → filter config map ───────────────────────────────────────────────
 const slugConfig = {
+
   // Category-level slugs
   "fruits-vegetables": { category: "fruits-vegetables", subCategory: null, label: "Fruits & Vegetables" },
   "dairy":             { category: "dairy",             subCategory: null, label: "Dairy" },
@@ -18,36 +19,76 @@ const slugConfig = {
   "beverages":         { category: "beverages",         subCategory: null, label: "Beverages" },
   "grains":            { category: "grains",            subCategory: null, label: "Grains" },
 
+  // NEW CATEGORY SLUGS
+ 
+  "bakery":            { category: "bakery",            subCategory: null, label: "Bakery" },
+  "frozen-foods":      { category: "frozen-foods",      subCategory: null, label: "Frozen Foods" },
+
+
   // SubCategory-level slugs
   "fruits":       { category: "fruits-vegetables", subCategory: "fruits",      label: "Fresh Fruits" },
   "vegetables":   { category: "fruits-vegetables", subCategory: "vegetables",  label: "Fresh Vegetables" },
+
   "milk":         { category: "dairy",             subCategory: "milk",        label: "Milk" },
   "cheese":       { category: "dairy",             subCategory: "cheese",      label: "Cheese" },
+
   "chips":        { category: "snacks",            subCategory: "chips",       label: "Chips" },
   "biscuits":     { category: "snacks",            subCategory: "biscuits",    label: "Biscuits" },
+
   "juices":       { category: "beverages",         subCategory: "juices",      label: "Juices" },
   "soft-drinks":  { category: "beverages",         subCategory: "soft-drinks", label: "Soft Drinks" },
+
   "rice":         { category: "grains",            subCategory: "rice",        label: "Rice" },
   "wheat":        { category: "grains",            subCategory: "wheat",       label: "Wheat" },
+
+
+  // NEW SUBCATEGORIES
+
+  "bread":        { category: "bakery",     subCategory: "bread",       label: "Bread" },
+  "cakes":        { category: "bakery",     subCategory: "cakes",       label: "Cakes" },
+
+  "ice-cream":    { category: "frozen-foods", subCategory: "ice-cream",    label: "Ice Cream" },
+  "frozen-snacks":{ category: "frozen-foods", subCategory: "frozen-snacks",label: "Frozen Snacks" },
+
 };
 
 // Hero banners per slug
 const heroBanners = {
-  "fruits-vegetables": { image: "/shop/Fruits.avif",      tag: "Farm Fresh",        title: "Fruits & Vegetables" },
-  "dairy":             { image: "/shop/Milk.jpg",          tag: "Farm Fresh Dairy",  title: "Dairy Products" },
-  "snacks":            { image: "/shop/Chips.jpg",         tag: "Snack Time",        title: "Snacks" },
-  "beverages":         { image: "/shop/Juices.avif",       tag: "Refreshment",       title: "Beverages" },
-  "grains":            { image: "/shop/Rice.jpg",          tag: "Daily Essentials",  title: "Grains" },
-  "fruits":            { image: "/shop/Fruits.avif",       tag: "Farm Fresh",        title: "Fresh Fruits" },
-  "vegetables":        { image: "/shop/Vegetables.jpg",    tag: "Farm Fresh",        title: "Fresh Vegetables" },
-  "milk":              { image: "/shop/Milk.jpg",          tag: "Farm Fresh Dairy",  title: "Pure & Fresh Milk" },
-  "cheese":            { image: "/shop/Cheese.jpg",        tag: "Premium Dairy",     title: "Rich & Creamy Cheese" },
-  "chips":             { image: "/shop/Chips.jpg",         tag: "Snack Time",        title: "Crispy Chips" },
-  "biscuits":          { image: "/shop/Biscuits.jpg",      tag: "Snack Delight",     title: "Crunchy Biscuits" },
-  "juices":            { image: "/shop/Juices.avif",       tag: "Fresh Refreshment", title: "Fresh Juices" },
-  "soft-drinks":       { image: "/shop/Soft Drinks.avif",  tag: "Cool Refreshment",  title: "Soft Drinks" },
-  "rice":              { image: "/shop/Rice.jpg",          tag: "Daily Essentials",  title: "Premium Rice" },
-  "wheat":             { image: "/shop/Wheat.jpg",         tag: "Daily Essentials",  title: "Pure Wheat" },
+  "fruits-vegetables": { image: "/shop/Fruits.avif", tag: "Farm Fresh", title: "Fruits & Vegetables" },
+  "dairy":             { image: "/shop/Milk.jpg", tag: "Farm Fresh Dairy", title: "Dairy Products" },
+  "snacks":            { image: "/shop/Chips.jpg", tag: "Snack Time", title: "Snacks" },
+  "beverages":         { image: "/shop/Juices.avif", tag: "Refreshment", title: "Beverages" },
+  "grains":            { image: "/shop/Rice.jpg", tag: "Daily Essentials", title: "Grains" },
+
+  // NEW MAIN CATEGORIES
+ 
+  "bakery":            { image: "/shop/Bread.jpg", tag: "Freshly Baked", title: "Bakery Items" },
+  "frozen-foods":      { image: "/shop/Icecream.jpg", tag: "Frozen Treats", title: "Frozen Foods" },
+
+  // SUBCATEGORIES
+  "fruits":            { image: "/shop/Fruits.avif", tag: "Farm Fresh", title: "Fresh Fruits" },
+  "vegetables":        { image: "/shop/Vegetables.jpg", tag: "Farm Fresh", title: "Fresh Vegetables" },
+
+  "milk":              { image: "/shop/Milk.jpg", tag: "Farm Fresh Dairy", title: "Pure & Fresh Milk" },
+  "cheese":            { image: "/shop/Cheese.jpg", tag: "Premium Dairy", title: "Rich & Creamy Cheese" },
+
+  "chips":             { image: "/shop/Chips.jpg", tag: "Snack Time", title: "Crispy Chips" },
+  "biscuits":          { image: "/shop/Biscuits.jpg", tag: "Snack Delight", title: "Crunchy Biscuits" },
+
+  "juices":            { image: "/shop/Juices.avif", tag: "Fresh Refreshment", title: "Fresh Juices" },
+  "soft-drinks":       { image: "/shop/Soft Drinks.avif", tag: "Cool Refreshment", title: "Soft Drinks" },
+
+  "rice":              { image: "/shop/Rice.jpg", tag: "Daily Essentials", title: "Premium Rice" },
+  "wheat":             { image: "/shop/Wheat.jpg", tag: "Daily Essentials", title: "Pure Wheat" },
+
+  // NEW SUBCATEGORIES
+
+
+  "bread":             { image: "/shop/Bread.jpg", tag: "Freshly Baked", title: "Fresh Bread" },
+  "cakes":             { image: "/shop/Cakes.jpg", tag: "Sweet Delights", title: "Delicious Cakes" },
+
+  "ice-cream":         { image: "/shop/Icecream.jpg", tag: "Frozen Treats", title: "Ice Cream" },
+  "frozen-snacks":     { image: "/shop/Frozen Snacks.jpg", tag: "Quick Snacks", title: "Frozen Snacks" },
 };
 
 const parsePrice = (priceStr) => {
