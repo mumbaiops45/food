@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useMemo, useEffect } from "react";
 import { allProducts } from "@/data/product";
 import Image from "next/image";
